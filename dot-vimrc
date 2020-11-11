@@ -1,0 +1,58 @@
+execute pathogen#infect()
+
+syntax on
+filetype plugin indent on
+colorscheme peachpuff
+
+" generic ui settings
+"set mouse=a
+set number
+set linespace=2
+set lines=999 columns=9999
+set tabstop=2 shiftwidth=2 expandtab
+set encoding=utf-8
+
+" Searching
+set hlsearch   " highlight matches
+set incsearch  " incremental searching
+set ignorecase " searches are case insensitive...
+set smartcase  " ... unless they contain at least one capital letter
+
+
+" Toggle line numbers off
+map <C-l> :set number!<CR>
+
+" Toggle paste mode
+map <C-k> :set paste!<CR>
+
+" NerdTree
+map <C-n> :NERDTreeToggle<CR>
+
+" ClojureScript Piggyback Figwheel cljs repl
+:command CLJS :Piggieback (figwheel-sidecar.repl-api/repl-env)
+
+" ctrl-p
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v(target|node_modules|dist[\/]\.(git|hg|svn))$',
+    \ 'file': '\v\.(exe|so|dll|class)$'
+    \ }
+
+" Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" ClojureScript & edn syntax same as Clojure
+autocmd BufRead,BufNewFile *.cljs setlocal filetype=clojure
+autocmd BufRead,BufNewFile *.edn setlocal filetype=clojure
+
+" Freemaker template is like html
+autocmd BufRead,BufNewFile *.ftl setlocal filetype=html
+
+" Omnicomplete
+set omnifunc=syntaxcomplete#Complete
+
+" prevent vim-cljfmt from auto-formatting on save
+let g:clj_fmt_autosave = 0
+
